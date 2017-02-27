@@ -1,0 +1,21 @@
+{
+  "name": "project",
+  "version": "1.0.0",
+  "description": "A project for the course 'webservices'",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "concurrently --kill-others \"npm run server\"",
+    "mongodb": "echo 'starting database' && mongod",
+    "server": "echo 'starting node server' && node app.js"
+  },
+  "keywords": [],
+  "author": "jonathan",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.14.1"
+  },
+  "devDependencies": {
+    "concurrently": "^3.3.0"
+  }
+}
