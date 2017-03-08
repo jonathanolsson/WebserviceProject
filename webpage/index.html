@@ -6,26 +6,89 @@
 		<meta name="description" content="">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>Start</title>
-		<!--
-			<link rel="stylesheet" href="css/style.css">
-		-->
+		<!-- Fonts for icons -->
+		<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+		<!-- Material design icons -->
+		<link rel="stylesheet" href="//cdn.materialdesignicons.com/1.7.22/css/materialdesignicons.min.css">
+
+		<!-- Compiled and minified CSS for Materialize CSS -->
+		<link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css" type="text/css" rel="stylesheet" media="screen">
+		
+		<!-- Fonts for text -->
+		<link href="https://fonts.googleapis.com/css?family=Fredericka+the+Great|Sacramento" rel="stylesheet">
+		
+		<!-- Custom stylesheets-->
+		<link rel="stylesheet" href="style_css/style.css">
 	</head>
 	<body>
-		<button type="button" onclick="loadDoc()">KLICKA PÅ MIG</button>
-		<p id="test" class="">
-		</p>
-		<script>
-			function loadDoc() {
-				var xhttp = new XMLHttpRequest();
-				xhttp.onreadystatechange = function() {
-					if (this.readyState == 4 && this.status == 200) {
-						console.log(this.responseText);
-						document.getElementById("test").innerHTML = this.responseText;
-					}
-				};
-				xhttp.open("GET", "http://localhost:3000/?address=edsbyn", true);
-				xhttp.send();
-			}
-		</script>
+		<!-- MENU/HEADER START -->
+		<div id="top" class="container col s12 m2 center">
+			<h4>Project - A mashup</h4>
+			
+			<div id="top-under" class="row container">
+				<a href="#" id="activateBtn" class="col s6 m6 center waves-effect">
+					<h5>Press Me</h5>
+				</a>
+			</div>
+		</div>
+		<!-- MENU/HEADER END-->
+		
+		<div id="content" class="container row">
+			<div class="col s12 m6">
+			</div>
+			<div class="col s12 m6">
+				<div id="helpText" class="row center">
+					<div class="col s4">
+						<h6>Date</h6>
+					</div>
+					<div class="col s4">
+						<h6>Coldest Temp</h6>
+					</div>
+					<div class="col s4">
+						<h6>Warmest Temp</h6>
+					</div>
+				</div>
+				<ul id="weatherList" class="center collection with-header">
+					<!--
+					<li class="collection-header">
+						<div class="row">
+							<div  class="col s4">
+								<h4 id="todayDate"></h4>
+							</div>
+							<div  class="col s4">
+								<h4 id="todayColdest"></h4>
+							</div>
+							<div  class="col s4">
+								<h4 id="todayWarmest"></h4>
+							</div>
+						</div>
+					</li>
+					-->
+				</ul>
+			</div>
+			
+			
+<!--
+			<ul id="weatherList" class="collapsible popout" data-collapsible="accordion">
+			</ul>
+-->
+		</div>
+		
+		
+		
+
+		
+		
+		
+		<!-- Scripts -->
+		<!--jQuery-->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+		
+		<!-- Compiled and minified JavaScript -->
+  	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
+		
+		<!-- Custom JavaScript-->
+		<script src="script_js/getWeather.js"></script>
+		
 	</body>
 </html>

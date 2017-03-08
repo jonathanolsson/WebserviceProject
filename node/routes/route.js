@@ -15,7 +15,7 @@ module.exports = function(app, request){
 			var lat;
 			var lon;
 			
-			var result = {};
+			var result = {response:[]};
 			
 			//Nice nesteling
 			location.getGeoLocation(request, address).then(function(response){
@@ -25,13 +25,80 @@ module.exports = function(app, request){
 
 				weather.getGeoWeather(request, lat, lon).then(function(response){
 					var serie = response.timeSeries;
-
-					for(var i = 0; i < serie.length; i++){
-						result[serie[i].validTime] = serie[i].parameters[1];
-					}
-					//console.log(result);
 					
-					if(result == '{}'){
+					/*{response: [
+							{date: "",
+							 coldest: "",
+							 warmest: "",
+							 temperature: [
+								 {time: "", temp: ""},
+								 {time: "", temp: ""},
+								 {time: "", temp: ""}
+							 ]},
+							 {date: "",
+							 coldest: "",
+							 warmest: "",
+							 temperature: [
+								 {time: "", temp: ""},
+								 {time: "", temp: ""},
+								 {time: "", temp: ""}
+							 ]}
+					]}*/
+					
+					var coldest = serie[0].parameters[1].values[0];
+					var warmest = serie[0].parameters[1].values[0];
+					var temperature = [];
+					
+					for(var i = 0; i < serie.length; i++){
+						var date;
+						
+						//If new date dont is same day as past iteration
+						if(i != 0 && new Date(serie[i].validTime).toLocaleDateString() != date.toLocaleDateString()){
+							console.log("new object");
+							var object = {"date": date.toLocaleDateString(),
+														"coldest": coldest,
+														"warmest": warmest,
+														"temperatures": temperature};
+							
+							result.response.push(object);
+							//reset some variables.
+							temperature = [];
+							coldest = serie[i].parameters[1].values[0];
+							warmest = serie[i].parameters[1].values[0];
+						}
+						
+						var temp = serie[i].parameters[1].values[0];
+						
+						//Set coldest/warmest
+						if(temp < coldest){
+							coldest = temp;
+							
+						}else if(temp > warmest){
+							warmest = temp;
+						
+						}
+						
+						date = new Date(serie[i].validTime);
+						var tempObject = {"time": date.toLocaleTimeString(), "temp": temp};
+						
+						temperature.push(tempObject);
+						
+						//var object = date.toLocaleDateString{"time":date.toLocaleTimeString, 
+						//							"temperature":serie[i].parameters[1].values[0]};
+						
+					}
+					/*
+					Old solution
+					for(var i = 0; i < serie.length; i++){
+						var object = {};
+						object[serie[i].validTime] = serie[i].parameters[1];
+						result.push(object);
+					}*/
+					
+					//Returns an array of json objects
+					console.log(result);
+					
+					if(result.length == 0){
 						rejected(result);
 					} else{
 						fullfilled(result);

@@ -1,0 +1,31 @@
+/*
+	This stylesheet file contains the style for the webpage.
+*/
+
+/*Id's*/
+#top {
+	font-family: 'Fredericka the Great', cursive;
+}
+
+#top-under {
+	font-family: 'Sacramento', cursive;
+}
+
+#top-under a{
+	font-size: 20px;
+	color: black;
+}
+
+#helpText{
+	font-family: 'Fredericka the Great', cursive;
+
+	margin-bottom: 0px;
+}
+
+#weatherList{
+	font-family: 'Sacramento', cursive;
+}
+
+#weatherList .row{
+	margin-bottom: 0px;
+}
