@@ -1,9 +1,55 @@
-$(function (){	
-	document.getElementById("activateBtn").addEventListener("click", printWeather, false);
+$(function (){
+	getGeo();
 	
-	printWeather();
+	document.getElementById("activateBtn").addEventListener("click", search, false);
+	
+	function search(){
+		var xhttp = new XMLHttpRequest();
+		var response;
+		
+		xhttp.onreadystatechange = function() {
+			if (this.readyState == 4 && this.status == 200) {
+				response = this.responseText;
+			}
+		};
+		
+		xhttp.open("GET", "http://localhost:3000/?address="+address, false);
+		xhttp.send();
+		
+		printWeather(response);
+	}
 	
 	
+	function getGeo(){
+		if (navigator.geolocation) {
+			navigator.geolocation.getCurrentPosition(function(position){
+				var lat = position.coords.latitude; 
+				var lon = position.coords.longitude;
+				geoLocation(lat, lon);
+			});
+			
+		} else { 
+			document.getElementById("activateBtn").innerHTML = "Geolocation is not supported by this browser.";
+		}
+	}
+	
+	function getLocation(lat, lon){
+		var xhttp = new XMLHttpRequest();
+		var response;
+		
+		xhttp.onreadystatechange = function() {
+			if (this.readyState == 4 && this.status == 200) {
+				response = this.responseText;
+			}
+		};
+		
+		xhttp.open("GET", "http://localhost:3000/geo/?lat="+lat+"&lon="+lon, false);
+		xhttp.send();
+		
+		printWeather(response);
+	}
+	
+	/*
 	function getWeather() {
 		var xhttp = new XMLHttpRequest();
 		var response;
@@ -12,15 +58,15 @@ $(function (){
 				response = this.responseText;
 			}
 		};
-		xhttp.open("GET", "http://localhost:3000/?address=sundsvall", false);
+		
+		xhttp.open("GET", "http://localhost:3000/address/?address=sundsvall", false);
 		xhttp.send();
-		return response;
+		printWeather(response);
 	}
+	*/
 	
-	
-	function printWeather(){
-		//Is JSON.parse necessary?
-		var weather = JSON.parse(getWeather());
+	function printWeather(weather){
+		weather = JSON.parse(weather);
 		
 		document.getElementById("weatherList").innerHTML = "";
 		
@@ -30,21 +76,6 @@ $(function (){
 			var date = new Date(weather.response[i].date);
 			var coldest = weather.response[i].coldest;
 			var warmest = weather.response[i].warmest;
-			/*
-			<li class="collection-item">						
-					<div class="row">
-						<div class="col s4">
-							<h4>Väder idag</h4>
-						</div>
-						<div class="col s4">
-							<h4>Väder idag</h4>
-						</div>
-						<div class="col s4">
-							<h4>Väder idag</h4>
-						</div>
-					</div>
-			</li>
-			*/
 			
 			var li = document.createElement("li");
 			var div = document.createElement("div");
@@ -81,59 +112,6 @@ $(function (){
 
 			document.getElementById("weatherList").appendChild(li);
 		}
-		
-		/*
-		weather.response.forEach(function(item){
-			console.log(item);
-			var date = item.date;
-			var coldest = item.coldest;
-			var warmest = item.warmest;
-			*/
-			/*
-			<li class="collection-item">						
-					<div class="row">
-						<div class="col s4">
-							<h4>Väder idag</h4>
-						</div>
-						<div class="col s4">
-							<h4>Väder idag</h4>
-						</div>
-						<div class="col s4">
-							<h4>Väder idag</h4>
-						</div>
-					</div>
-			</li>
-			*/
-		/*
-			document.getElementById("weatherList").appendChild(li);
-
-			
-			var li = document.createElement("li");
-			var div = document.createElement("div");
-			
-			var divDate = document.createElement("div");
-			var divWarmest = document.createElement("div");
-			var divColdest = document.createElement("div");
-			
-			li.setAttribute("class", "collection-item");
-			div.setAttribute("class", "row");
-			
-			divDate.setAttribute("class", "col s4");
-			divWarmest.setAttribute("class", "col s4");
-			divColdest.setAttribute("class", "col s4");
-			
-			divDate.innerHTML = date;
-			divWarmest.innerHTML = coldest;
-			divColdest.innerHTML = warmest;
-			
-			div.appendChild(divDate);
-			div.appendChild(divWarmest);
-			div.appendChild(divColdest);
-			li.appendChild(div);
-			
-			document.getElementById("weatherList").appendChild(li);
-		});
-		*/
 	}
 	
 	
