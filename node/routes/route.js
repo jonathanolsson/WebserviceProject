@@ -1,23 +1,32 @@
+/*
+Combines getWeather and getLocation and is responsible for the routes. 
+This could be devided more but as the project is small, it would be absurd.
+*/
 module.exports = function(app, request){
 	var location = require("./getLocation");
 	var weather = require("./getWeather");
+	var image = require("./getImage");
 	
+	
+	//HTTP get on /address. parameter "?address='address'"
 	app.get("/address/", function(req, res){
 		res.setHeader('Content-Type', 'application/json');
 		
 		if(req.query.address){
 			parseWeather(req.query.address).then(function(response){
-				//console.log(response);
 				res.send(response);
+			}).catch(function(rejected){
+				res.status(406).send(rejected);
 			});
+			
 		} else{
 			res.status(400).send("Wrong query");
 		}
 	});
 	
+	//HTTP get on /geo. parameter "?lat='latitude'&lon='longitude'"
 	app.get("/geo/", function(req, res){
 		res.setHeader('Content-Type', 'application/json');
-		console.log(req.query);
 		
 		if(req.query.lat && req.query.lon){
 			parseWeatherGeo(req.query.lat, req.query.lon).then(function(response){
@@ -28,8 +37,24 @@ module.exports = function(app, request){
 		}
 	});
 	
+	//HTTP get on /image. Will return a random image.
+	app.get("/image/", function(req, res){
+		res.setHeader('Content-Type', 'text/plain');
+		console.log("HEJ");
+		
+		image.getImage(request).then(function(response){
+			console.log(response);
+			res.send(response);
+		});
+	});
+	
+	
+	
+	
+	
+	//Parse the weather when an address is given.
 	function parseWeather(address){
-		return new Promise(function(fullfilled, rejected){
+		return new Promise(function(fulfilled, rejected){
 			var lat;
 			var lon;
 			
@@ -44,7 +69,9 @@ module.exports = function(app, request){
 				weather.getGeoWeather(request, lat, lon).then(function(response){
 					var serie = response.timeSeries;
 					
-					/*{response: [
+					/*
+					WANTED RESPONSE
+					{response: [
 							{date: "",
 							 coldest: "",
 							 warmest: "",
@@ -119,16 +146,22 @@ module.exports = function(app, request){
 					if(result.length == 0){
 						rejected(result);
 					} else{
-						fullfilled(result);
+						fulfilled(result);
 					}
+				}).catch(function(exep){
+					rejected(exep);
 				});
+			}).catch(function(exep){
+				rejected(exep);
 			});
 			
 		});
 	}
+	
+	//Parse the weather when a latitude and a longitude is given.
 	function parseWeatherGeo(lat, lon){
 		
-		return new Promise(function(fullfilled, rejected){
+		return new Promise(function(fulfilled, rejected){
 			
 			lat = lat.substring(0, 7);
 			lon = lon.substring(0, 7);
@@ -182,7 +215,7 @@ module.exports = function(app, request){
 				if(result.length == 0){
 					rejected(result);
 				} else{
-					fullfilled(result);
+					fulfilled(result);
 				}
 			});
 			

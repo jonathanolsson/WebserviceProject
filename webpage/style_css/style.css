@@ -5,15 +5,7 @@
 /*Id's*/
 #top {
 	font-family: 'Fredericka the Great', cursive;
-}
-
-#top-under {
-	font-family: 'Sacramento', cursive;
-}
-
-#top-under a{
-	font-size: 20px;
-	color: black;
+	color: white;
 }
 
 #search {
@@ -26,10 +18,11 @@
 	color: black;
 }
 
-#helpText{
+h6 {
 	font-family: 'Fredericka the Great', cursive;
-
-	margin-bottom: 0px;
+	color: white;
+	
+	margin-bottom: 7px;
 }
 
 #weatherList{
@@ -47,3 +40,26 @@
 	font-family: 'Fredericka the Great', cursive;
 	font-size: 20px;
 }
+
+#onTop{
+	height: 110%;
+	width: 110%;
+  z-index: -1;
+	
+	top: -20px;
+	left: -20px;
+  right: 0;
+	position: fixed;
+	
+	-webkit-filter: blur(5px);
+	-moz-filter: blur(5px);
+	-o-filter: blur(5px);
+	-ms-filter: blur(5px);
+	filter: blur(5px);
+}
+
+
+
+
+
+
