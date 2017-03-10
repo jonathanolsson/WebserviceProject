@@ -32,7 +32,7 @@ module.exports = {
 				result = JSON.parse(body);
 				return result.results[0].geometry.location;
 			}
-			*/
+		*/
 		});
 		
 	}

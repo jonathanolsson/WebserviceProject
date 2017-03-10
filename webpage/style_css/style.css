@@ -16,6 +16,16 @@
 	color: black;
 }
 
+#search {
+	margin-top: 0px;
+	font-family: 'Sacramento', cursive;
+}
+
+#search a{
+	font-size: 20px;
+	color: black;
+}
+
 #helpText{
 	font-family: 'Fredericka the Great', cursive;
 
@@ -28,4 +38,12 @@
 
 #weatherList .row{
 	margin-bottom: 0px;
+}
+#inputField {
+	margin-top: 0px;
+}
+
+#address {
+	font-family: 'Fredericka the Great', cursive;
+	font-size: 20px;
 }

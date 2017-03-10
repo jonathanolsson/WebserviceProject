@@ -1,22 +1,27 @@
 $(function (){
 	getGeo();
 	
-	document.getElementById("activateBtn").addEventListener("click", search, false);
+	document.getElementById("searchBtn").addEventListener("click", search, false);
 	
 	function search(){
 		var xhttp = new XMLHttpRequest();
 		var response;
+		var address = document.getElementById("address").value;
+		console.log(address);
 		
-		xhttp.onreadystatechange = function() {
-			if (this.readyState == 4 && this.status == 200) {
-				response = this.responseText;
-			}
-		};
-		
-		xhttp.open("GET", "http://localhost:3000/?address="+address, false);
-		xhttp.send();
-		
-		printWeather(response);
+		if(address != undefined || address != ""){
+			console.log(address);
+			xhttp.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+					response = this.responseText;
+				}
+			};
+
+			xhttp.open("GET", "http://localhost:3000/address/?address="+address, false);
+			xhttp.send();
+
+			printWeather(response);
+		}
 	}
 	
 	
@@ -25,7 +30,7 @@ $(function (){
 			navigator.geolocation.getCurrentPosition(function(position){
 				var lat = position.coords.latitude; 
 				var lon = position.coords.longitude;
-				geoLocation(lat, lon);
+				getLocation(lat, lon);
 			});
 			
 		} else { 
@@ -119,5 +124,6 @@ $(function (){
 	//init
  	$('.collapsible').collapsible();
 	
-	
+	Materialize.updateTextFields();
+  
 })
