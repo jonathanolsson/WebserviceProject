@@ -40,16 +40,12 @@ module.exports = function(app, request){
 	//HTTP get on /image. Will return a random image.
 	app.get("/image/", function(req, res){
 		res.setHeader('Content-Type', 'text/plain');
-		console.log("HEJ");
 		
 		image.getImage(request).then(function(response){
 			console.log(response);
 			res.send(response);
 		});
 	});
-	
-	
-	
 	
 	
 	//Parse the weather when an address is given.
@@ -222,27 +218,6 @@ module.exports = function(app, request){
 		});
 	}
 };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

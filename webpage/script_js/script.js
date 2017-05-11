@@ -132,33 +132,23 @@ $(function (){
 		
 	}
 	
-	function addNote(){
-		var li = document.createElement("li");
-		var input = document.createElement("input");
-		
-		li.setAttribute("class", "collection-item");
-		input.setAttribute("type", "text");
-		
-		li.appendChild(input);
-		document.getElementById("noteList").appendChild(li);
-	}
 	
 	function addNote(){
 		var li = document.createElement("li");
 		var input = document.createElement("input");
-		var removeBtn = document.createElement("i");
+		var removeIcon = document.createElement("i");
 		
 		li.setAttribute("class", "row collection-item");
 		input.setAttribute("type", "text");
 		input.setAttribute("class", "col s10");
 		
-		removeBtn.setAttribute("class", "material-icons small col s2");
-		removeBtn.addEventListener("click", deleteNote, false);
-		removeBtn.style.marginTop = "16px";
-		removeBtn.innerHTML = "close";
-		
+		removeIcon.setAttribute("class", "clickable material-icons small col s2");
+		removeIcon.addEventListener("click", deleteNote, false);
+		removeIcon.style.marginTop = "16px";
+		removeIcon.innerHTML = "close";
+				
 		li.appendChild(input);
-		li.appendChild(removeBtn);
+		li.appendChild(removeIcon);
 		
 		document.getElementById("noteList").appendChild(li);
 	}

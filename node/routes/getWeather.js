@@ -4,7 +4,7 @@ Longitude and latitude is required.
 */
 module.exports = {
 	getGeoWeather : function(request, lat, lon){
-		return new Promise(function(fulfilled, rejected){
+		return new Promise(function(fulfilled, rejected){	
 			
 			var path = "http://opendata-download-metfcst.smhi.se/api/category/pmp2g/version/2/geotype/point/lon/"+lon+"/lat/"+lat+"/data.json"
 			var result;
@@ -26,7 +26,6 @@ module.exports = {
 					}
 				}
 			});
-			
 		});
 	}
 };
