@@ -15,5 +15,4 @@ module.exports = {
 				*/
 			});
 	}
-	//https://source.unsplash.com/category/nature/1600x900
 }
